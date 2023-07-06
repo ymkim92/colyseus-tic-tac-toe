@@ -36,19 +36,19 @@ export default class GameScreen extends PIXI.Container {
     this.room = await colyseus.joinOrCreate('tictactoe');
 
     let numPlayers = 0;
-    this.room.state.players.onAdd = () => {
+    this.room.state.players.onAdd(() => {
       numPlayers++;
 
       if (numPlayers === 2) {
         this.onJoin();
       }
-    }
+    });
 
-    this.room.state.board.onChange = (value, index) => {
+    this.room.state.board.onChange((value, index) => {
       const x = index % 3;
       const y = Math.floor(index / 3);
       this.board.set(x, y, value);
-    }
+    })
 
     this.room.state.listen("currentTurn", (sessionId) => {
       // go to next turn after a little delay, to ensure "onJoin" gets called before this.
@@ -58,9 +58,9 @@ export default class GameScreen extends PIXI.Container {
     this.room.state.listen("draw", () => this.drawGame());
     this.room.state.listen("winner", (sessionId) => this.showWinner(sessionId));
 
-    this.room.state.onChange = (changes) => {
+    this.room.state.onChange((changes) => {
       console.log("state.onChange =>", changes);
-    }
+    });
 
     this.room.onError.once(() => this.emit('goto', TitleScreen));
   }
@@ -86,7 +86,7 @@ export default class GameScreen extends PIXI.Container {
     // not waiting anymore!
     this.removeChild(this.waitingText)
 
-    this.timeIcon = new PIXI.Sprite.fromImage('images/clock-icon.png')
+    this.timeIcon = new PIXI.Sprite.fromImage('clock-icon')
     this.timeIcon.pivot.x = this.timeIcon.width / 2
     this.addChild(this.timeIcon)
 

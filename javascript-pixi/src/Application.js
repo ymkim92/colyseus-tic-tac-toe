@@ -19,7 +19,7 @@ window.colyseus = new Client(endpoint);
 export default class Application {
 
   constructor () {
-    this.background = new PIXI.Sprite.fromImage('images/background.jpg')
+    this.background = new PIXI.Sprite.fromImage('background')
     this.background.pivot.x = this.background.width / 2
     this.background.pivot.y = this.background.height / 2
 

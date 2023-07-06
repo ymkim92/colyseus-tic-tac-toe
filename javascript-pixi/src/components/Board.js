@@ -7,7 +7,7 @@ export default class Board extends PIXI.Container {
 
     this.size = 190
 
-    this.background = new PIXI.Sprite.fromImage('images/board.png')
+    this.background = new PIXI.Sprite.fromImage('board')
     this.addChild(this.background)
 
     let slot = new PIXI.Graphics()

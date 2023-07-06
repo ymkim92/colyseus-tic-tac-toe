@@ -8,7 +8,7 @@ export default class TitleScreen extends PIXI.Container {
   constructor () {
     super()
 
-    this.title = new PIXI.Sprite.fromImage("images/logo.png")
+    this.title = new PIXI.Sprite.fromImage("logo")
     this.title.pivot.x = this.title.width / 2
     this.addChild(this.title)
 
@@ -21,7 +21,7 @@ export default class TitleScreen extends PIXI.Container {
     this.instructionText.pivot.y = this.instructionText.height / 2
     this.addChild(this.instructionText)
 
-    this.colyseus = new PIXI.Sprite.fromImage('images/colyseus.png')
+    this.colyseus = new PIXI.Sprite.fromImage('colyseus')
     this.colyseus.pivot.x = this.colyseus.width / 2
     this.addChild(this.colyseus)
 
