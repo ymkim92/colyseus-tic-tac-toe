@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js'
 import Application from '../Application'
 import GameScreen from './GameScreen'
 
-import LocalStorage from '../core/LocalStorage'
+import * as LocalStorage from '../core/LocalStorage'
 
 export default class EndGameScreen extends PIXI.Container {
 
