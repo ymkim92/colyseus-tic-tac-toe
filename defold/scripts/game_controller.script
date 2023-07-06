@@ -10,11 +10,6 @@ local room
 local numPlayers = 0
 local gui_controller = msg.url("game", hash("/gui"), "game")
 
--- Send server to selected tile's x, y
-local function onSelect(_x, _y)
-	room:send({x = _x, y = _y})
-end
-
 -- Show winner or loser on GUI
 local function showWinner(sessionId)
 	room:leave()
@@ -58,19 +53,19 @@ function init(self)
 
 		--Listen to room state changes from the room handler.
 		--Use this method to synchronize the room state from the server with the clients.
-		room.state.players.on_add = function(player, sessionId)
+		room.state.players:on_add(function(player, sessionId)
 			numPlayers = numPlayers + 1
 			if numPlayers == 2 then
 				onJoin()
 				nextTurnOut(sessionId) -- Called second time here
 			end
-		end
+		end)
 
-		room.state.players.on_remove = function(player, sessionId)
+		room.state.players:on_remove(function(player, sessionId)
 			numPlayers = numPlayers - 1
-		end
+		end)
 
-		room.state.on_change = function(changes)
+		room.state:on_change(function(changes)
 			for i, change in ipairs(changes) do
 				if change.field == "currentTurn" then
 					nextTurnOut(change.value)
@@ -80,14 +75,14 @@ function init(self)
 					showWinner(change.value)
 				end
 			end
-		end
+		end)
 
-		room.state.board.on_change = function(value, index)
+		room.state.board:on_change(function(value, index)
 			local i = index - 1
 			local x = i % 3
 			local y = math.floor(i / 3)
 			msg.post(gui_controller, "ChangeTile", {change = {x=x, y=y, value=value}})
-		end
+		end)
 
 		room:on("error", function(err)
 			print("oops, error ocurred:")
@@ -106,12 +101,15 @@ function final(self)
 end
 
 function update(self, dt)
-	-- #loop ? There isn't any documentation on colyseus docs about loop.
-	client:loop()
+	--
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("SetTile") then
-		onSelect(message.x, message.y)
+		-- Send server to selected tile's x, y
+		room:send("action", {
+			x = message.x,
+			y = message.y
+		})
 	end
 end
