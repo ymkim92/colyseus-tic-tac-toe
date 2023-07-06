@@ -1,13 +1,11 @@
-# Tic-Tac-Toe Multiplayer 
+# Tic-Tac-Toe Multiplayer
 
-Turn-based demonstration project using Colyseus 
+Turn-based demonstration project using Colyseus.
 
-- [JavaScript/PixiJS](#javascript--pixijs)
-- [Defold Engine](#defold-engine)
-
-If you want to see more examples like this and help Colyseus to grow, consider supporting my work on Patreon.
-
-<a href="https://www.patreon.com/bePatron?u=3301115"><img src="https://c5.patreon.com/external/logo/become_a_patron_button.png" /></a>
+This repository has:
+- `server/`: The Colyseus server, with tic-tac-toe room implementation.
+- `javascript-pixi/`: A JavaScript/PixiJS client-side project.
+- `defold/`: A [Defold](https://defold.com/) client-side project.
 
 # Running the server locally
 
@@ -24,16 +22,16 @@ npm start
 
 **Important files to have look at**
 
-- [registering room](server/index.ts#L19)
+- [registering room](server/index.ts#L20)
 - [room and state implementation](server/rooms/tictactoe.ts)
 
 ## JavaScript / PixiJS
 
 The JavaScript/PixiJS example uses:
 
-- [colyseus](http://colyseus.io)
-- [webpack 4.x](http://npmjs.com/package/webpack)
+- [colyseus](https://colyseus.io)
 - [pixi.js v4](http://npmjs.com/package/pixi.js)
+- [parcel](http://npmjs.com/package/parcel)
 
 **Running the JavaScript/PixiJS client**
 
@@ -45,14 +43,12 @@ npm start
 
 **Important files to have look at**
 
-- [room connection](frontend/src/screens/GameScreen.js#L36)
-- [receiving state updates](frontend/src/screens/GameScreen.js#L39-L69)
+- [room connection](javascript-pixi/src/screens/GameScreen.js#L36)
+- [receiving state updates](javascript-pixi/src/screens/GameScreen.js#L39-L63)
 
 ## Defold Engine
 
 The Defold project was made by [Selim Anaç](https://github.com/selimanac/).
-
-Remember to Fetch Libraries on Defold (Project > Fetch Libraries)
 
 ## License
 
